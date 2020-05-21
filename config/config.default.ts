@@ -12,6 +12,9 @@ export default (appInfo: EggAppInfo) => {
       csrf: {
         enable: false
       }
+    },
+    passportJwt: {
+      secret: 'ILOVEU'
     }
   } as PowerPartial<EggAppConfig>;
 
@@ -20,8 +23,10 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1589465269877_8637';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = ['jwtRequire'];
 
+  //不进行验证的名单
+  config.noVerifyArray = ['/api/v1/login'];
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

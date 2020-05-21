@@ -3,6 +3,8 @@ import { Application } from 'egg';
 
 export default (app: Application) => {
   const { controller, router } = app
-  
-  router.get('/api/login', controller.user.login)
+  const _namespace = (url: string): string => `/api/v1/${url}`
+
+  router.post(_namespace('login'), controller.user.login)
+  router.get(_namespace('bbs/getTopic'), controller.bbs.getTopic)
 }
