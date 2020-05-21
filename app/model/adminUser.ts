@@ -1,16 +1,13 @@
 import { Application } from 'egg'
 
 export default (app: Application) => {
-
   const mongoose = app.mongoose
   const Schema = mongoose.Schema
 
-  const adminUserSchema = new Schema({
-    userName: {type: String, required: true},
-    password: {type: String, required: true},
-    create_at: {type: Date, default: new Date},
-    power: {type: Array, default: []}
+  const schemas = new Schema({
+    username: String,//用户名
+    password: String,//密码
   })
 
-  return mongoose.model('adminUser', adminUserSchema)
+  return mongoose.model('AdminUser', schemas)
 }

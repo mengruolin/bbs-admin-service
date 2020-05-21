@@ -3,15 +3,14 @@ import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 export default (appInfo: EggAppInfo) => {
   const config = {
     mongoose: {
-      clients: {
-        db1: {
-          url: 'mongodb://127.0.0.1:27017/blog',
-          options: {},
-        },
-        db2: {
-          url: 'mongodb://127.0.0.1:27017/blogAdmin',
-          options: {},
-        }
+      client: {
+        url: 'mongodb://127.0.0.1:27017/blog',
+        options: {},
+      }
+    },
+    security: {
+      csrf: {
+        enable: false
       }
     }
   } as PowerPartial<EggAppConfig>;
@@ -26,6 +25,8 @@ export default (appInfo: EggAppInfo) => {
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
+    defaultAvatar: '//blog-sso-1254604265.cos.ap-chengdu.myqcloud.com/image/ckN-343242777.jpg',
+    auth_cookie_name: 'admin_club'
   };
 
   // the return config will combines to EggAppConfig

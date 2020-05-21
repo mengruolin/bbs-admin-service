@@ -8,12 +8,14 @@ export default class User extends Service {
   /**
    * name
    */
-  public async getUserByLoginName(userName: string) {
+  public async getUserByLoginName(username: string) {
+    const { ctx } = this
     try {
-      const res = await this.ctx.model.adminUser.findOne({userName})
+      const res = await ctx.model.AdminUser.findOne({username})
       return res
+
     } catch (error) {
-      
+      //console.log(error);
     }
   }
 
