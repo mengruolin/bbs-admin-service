@@ -9,8 +9,6 @@ export default () => {
     if (config.noVerifyArray.includes(ctx.request.url)) {
       return await next()
     }
-    console.log(ctx.headers.authorization);
-    
     let token: string = ''
     if (
       ctx.headers.authorization && ctx.headers.authorization.split(' ')[0] === 'Bearer'
@@ -24,7 +22,8 @@ export default () => {
 
     //没有携带请求头 
     if (token === '') {
-      return ctx.body = {code: '999', msg: '未携带 Token'}
+      //ctx.status = 401
+      return ctx.body = {code: '401', msg: '未携带 Token'}
     }
 
 
@@ -41,17 +40,19 @@ export default () => {
       const existUser: any = await ctx.service.user.getUserByLoginName(username)
 
       if (!existUser) {
-        return ctx.body = {code: '999', msg: '用户不存在'}
+        //ctx.status = 401
+        return ctx.body = {code: '401', msg: '用户不存在'}
       }
 
       if (existUser.password !== password) {
-        return ctx.body = {code: '999', msg: '登陆失效'}
+        return ctx.body = {code: '401', msg: '登陆失效'}
       }
       
       ctx.user = existUser
     } catch (error) {
       ctx.logger.error(error)
-      return ctx.body = {code: '999', msg: '未知错误'}
+      //ctx.status = 401
+      return ctx.body = {code: '401', msg: '未知错误'}
     }
 
     await next();

@@ -6,6 +6,6 @@ export default class HomeController extends Controller {
     // let res = await ctx.service.user.getUserByLoginName("18039596250")
     // console.log(res);
     
-    ctx.body = await ctx.service.test.sayHi();
+    ctx.body = `<h1>admin bbb 后台管理系统</h1>`
   }
 }
