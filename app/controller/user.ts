@@ -9,7 +9,7 @@ export default class UserController extends Controller {
     try {
       const {username, password} = ctx.request.body
 
-      if (!username || !password) ctx.body = {code: '999', msg: '缺少相关参数'}
+      if (username === '' || password === '') ctx.body = {code: '999', msg: '缺少相关参数'}
 
       const userInfo: any = await ctx.model.AdminUser.findOne({username})
 
@@ -33,9 +33,9 @@ export default class UserController extends Controller {
   /**
    * profile
    */
-  public profile() {
+  public async logout() {
     const { ctx } = this
-    //console.log(ctx.user);
+    //console.log(ctx.user)
     
     ctx.body = {code: '0', user: ctx.user}
   }
